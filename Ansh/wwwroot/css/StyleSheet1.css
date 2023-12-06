@@ -1,0 +1,59 @@
+﻿body {
+    padding-top: 50px;
+    font-size: 16px;
+}
+.navbar-nav .open .dropdown-menu {
+    position: absolute;
+    margin-top: 0;
+}
+#sidebar {
+    width: 165px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f8f8f8;
+    padding-top: 20px;
+    transition: all 0.3s;
+}
+
+    #sidebar .navbar-brand {
+        text-align: center;
+    }
+
+    #sidebar .nav {
+        padding-left: 10px;
+    }
+.and {
+    padding-left: 15px;
+}
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding-right: 15px;
+    accent-color: aliceblue;
+    
+}
+#content {
+    margin-left: 230px; /* Adjusted margin to match sidebar width */
+    transition: margin-left 0.3s;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -230px; /* Adjusted negative margin to match sidebar width */
+    }
+
+    #content {
+        margin-left: 0;
+    }
+}
+.dropdown-submenu {
+    position: relative;
+}
+
+    .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+    }

@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timesheet</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="~/css/stylesheet1.css" rel="stylesheet" />
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+    <div id="sidebar">
+        <h2 class="and">Timesheet</h2>
+        <ul class="nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Dashboard/Display">Dashboard</a></li>
+                    <li><a href="#">Employee Details</a></li>
+<li><a href="#">Company Details</a></li>
+<li><a href="#">Project Details</a></li>
+<li><a href="#">Fill Timesheet</a></li>
+                    <!-- Add more dropdown items as needed -->
+                </ul>
+            </li>
+            @if (User.IsInRole("admin"))
+            {
+ <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Admin/Display">Admin Page</a></li>
+                    <li><a href="/Admin/Employee">Add Employee</a></li>
+<li><a href="#">Add Company</a></li>
+<li><a href="#">Add Project</a></li>
+<li><a href="#">Timesheet Details</a></li>
+                    <!-- Add more dropdown items as needed -->
+                </ul>
+            </li>
+                
+
+            }
+            @if (!string.IsNullOrEmpty(User.Identity.Name))
+            {
+                <li><a href="/UserAuthentication/ChangePassword">ChangePassword</a></li>
+                <li><a href="/UserAuthentication/Logout">Logout</a></li>
+            }
+        </ul>
+    </div>
+
+    <div id="content">
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!-- Add these scripts to the head section of your layout file -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
+<script src="~/wwwroot/js/JavaScript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#sidebarCollapse").on("click", function () {
+                $("#sidebar").toggleClass("active");
+                $("#content").toggleClass("active");
+            });
+        });
+        $(document).ready(function () {
+            $(".dropdown").on({
+                mouseenter: function () {
+                    $(this).addClass('open');
+                },
+                mouseleave: function () {
+                    $(this).removeClass('open');
+                },
+                blur: function () {
+                    $(this).removeClass('open');
+                }
+            });
+    </script>
+</body>
+</html>
