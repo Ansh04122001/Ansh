@@ -12,14 +12,10 @@ namespace Ansh_.Controllers
         {
             this._authService = authService;
         }
-
-
         public IActionResult Login()
         {
             return View();
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
@@ -28,7 +24,7 @@ namespace Ansh_.Controllers
             var result = await _authService.LoginAsync(model);
             if (result.StatusCode == 1)
             {
-                return RedirectToAction("Display", "Dashboard");
+                return RedirectToAction("Display","Dashboard");
             }
             else
             {
@@ -41,6 +37,10 @@ namespace Ansh_.Controllers
         {
             return View();
         }
+        public IActionResult RegistrationAdmin()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationModel model)
@@ -49,7 +49,8 @@ namespace Ansh_.Controllers
             model.Role = "user";
             var result = await this._authService.RegisterAsync(model);
             TempData["msg"] = result.Message;
-            return RedirectToAction(nameof(Registration));
+
+            return RedirectToAction("Display", "Admin");
         }
 
         [Authorize]
@@ -59,19 +60,21 @@ namespace Ansh_.Controllers
             return RedirectToAction(nameof(Login));
         }
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterAdmin()
+        public async Task<IActionResult> RegisterAdmin(RegistrationModel model)
         {
-            RegistrationModel model = new RegistrationModel
-            {
-                Username = "admin",
-                Email = "admin@gmail.com",
-                FirstName = "Ansh",
-                LastName = "Bhargava",
-                Password = "Admin@12345#"
-            };
+            //RegistrationModel model = new RegistrationModel
+            //{
+            //    Username = "Hr",
+            //    Email = "Hr@gmail.com",
+            //    FirstName = "Harsh",
+            //    LastName = "Bhargava",
+            //    Password = "Admin@123"
+            //};
+            if (!ModelState.IsValid) { return View(model); }
             model.Role = "admin";
             var result = await this._authService.RegisterAsync(model);
-            return Ok(result);
+            TempData["msg"] = result.Message;
+            return RedirectToAction("Display", "Admin");
         }
 
         [Authorize]

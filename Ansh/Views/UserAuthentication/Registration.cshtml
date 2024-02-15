@@ -1,84 +1,12 @@
 ﻿@model Ansh.Models.DTO.RegistrationModel
 @{
-    Layout = null;
+    string username = User.Identity.Name;
+
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Registration</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-<body>
 
-    @Html.ValidationSummary()
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 center-block">
-                <form asp-action="Registration" method="post" class="registration-form">
-                    <h3>Registration</h3>
-                    <div class="form-group input-field">
-                        <label>FName*</label>
-                        <input type="text" class="form-control" asp-for="FirstName" />
-                        <span class="text-danger" asp-validation-for="FirstName"></span>
-                    </div>
 
-                    <div class="form-group input-field">
-                        <label>LName*</label>
-                        <input type="text" class="form-control" asp-for="LastName" />
-                        <span class="text-danger" asp-validation-for="LastName"></span>
-                    </div>
-
-                    <div class="form-group input-field">
-                        <label>Email</label>
-                        <input type="text" class="form-control" asp-for="Email" />
-                        <span class="text-danger" asp-validation-for="Email"></span>
-                    </div>
-
-                    <div class="form-group input-field">
-                        <label>Username</label>
-                        <input type="text" class="form-control" asp-for="Username" />
-                        <span class="text-danger" asp-validation-for="Username"></span>
-                    </div>
-
-                    <div class="form-group input-field">
-                        <label>Password (e.g., John@123)</label>
-                        <input type="password" class="form-control" asp-for="Password" />
-                        <span class="text-danger" asp-validation-for="Password"></span>
-                    </div>
-
-                    <div class="form-group input-field">
-                        <label>Password confirm</label>
-                        <input type="password" class="form-control" asp-for="PasswordConfirm" />
-                        <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
-                    </div>
-
-                    @if (TempData["msg"] != null)
-                    {
-                        <div class="form-group input-field">
-                            <span class="text-info">@TempData["msg"]</span>
-                        </div>
-                    }
-
-                    <button type="submit" class="btn btn-info">Registration</button>
-                    <a class="btn btn-primary" href="/UserAuthentication/Login">Login</a>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-eOJMYsdz7Dxj1qzxKTckVQx6opxUHL2zLRSYEM+7wsjIENk5KT7Txhca2QVrmhj" crossorigin="anonymous"></script>
-</body>
-</html>
 
 <style>
-    .registration-form {
-        border: 1px ;
-        width: 70%;
-        margin: auto;
-        padding: 20px;
-    }
 
     input[type="text"],
     input[type="password"] {
@@ -91,7 +19,7 @@
     }
 
     button {
-        background-color: #aa048b;
+        background-color: #87CEFA;
         color: white;
         padding: 14px;
         margin: 8px 0;
@@ -99,23 +27,356 @@
         cursor: pointer;
         width: 100%;
     }
-
-    .container {
-        background-color: #fff;
-        border-radius: 2px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        margin-top: 20px;
-    }
-
     .text-danger {
         color: red;
     }
 
-    body {
-        
-        background-color: #343a40;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .h2 {
+        text-align: center;
+    }
+    .center-text {
+        text-align: center;
     }
 </style>
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="@Url.Action("Display", "Admin")" class="logo d-flex align-items-center">
+            <img src="~/context/img/logo.png" alt="">
+            <span class="d-none d-lg-block">Admin</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                    <i class="bi bi-search"></i>
+                </a>
+            </li><!-- End Search Icon-->
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge bg-primary badge-number">2</span>
+                </a><!-- End Notification Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <li class="dropdown-header">
+                        You have 2 new notifications
+                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-exclamation-circle text-warning"></i>
+                        <div>
+                            <h4>Lorem Ipsum</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>30 min. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-x-circle text-danger"></i>
+                        <div>
+                            <h4>Atque rerum nesciunt</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>1 hr. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+
+                    <li class="dropdown-footer">
+                        <a href="#">Show all notifications</a>
+                    </li>
+
+                </ul><!-- End Notification Dropdown Items -->
+
+            </li><!-- End Notification Nav -->
+            <li class="nav-item dropdown pe-3">
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    @if (Model != null)
+                    {
+                        <!-- Add your HTML markup here to display the user's profile image -->
+                       @*  <img src="@Model.ProfileImage" alt="Profile Image" /> *@
+
+                        <!-- Display other user profile information as needed -->
+                    }
+                   
+                    <span class="d-none d-md-block dropdown-toggle ps-2">@username</span>
+                </a><!-- End Profile Iamge Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>Hi @username</h6>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/Dashboard/Users">
+                            <i class="bi bi-person"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/Dashboard/ChangePassword">
+                            <i class="bi bi-gear"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/UserAuthentication/Logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </li>
+
+                </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Display", "Admin")">
+                <i class="bi bi-house-door"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#department-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-building"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="department-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="@Url.Action("Add","Admin")">
+                        <i class="bi bi-plus-circle"></i><span>Add Department</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Manage","Admin")">
+                        <i class="bi bi-gear"></i><span>Manage Department</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Department Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#employee-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>Employee</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="employee-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="@Url.Action("AddEmployee","Admin")">
+                        <i class="bi bi-person-plus"></i><span>Add Employee</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ManageEmployee","Admin")">
+                        <i class="bi bi-person-lines-fill"></i><span>Manage Employee</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Employee Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#project-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-building"></i><span>Project</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="project-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="@Url.Action("AddProject","Admin")">
+                        <i class="bi bi-plus-circle"></i><span>Add Project</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ManageProject","Admin")">
+                        <i class="bi bi-gear"></i><span>Manage Project</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Department Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#task-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-card-checklist"></i><span>Task</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="task-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="@Url.Action("AddTask", "Admin")">
+                        <i class="bi bi-file-plus"></i><span>Add Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ManageTask","Admin")">
+                        <i class="bi bi-file-earmark-text"></i><span>Manage Task</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Task Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#task-status-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-bar-chart-line"></i><span>Task Status</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="task-status-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="@Url.Action("TaskProgress","Admin")">
+                        <i class="bi bi-arrow-right-circle"></i><span>Inprogress Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("CompletedTask","Admin")">
+                        <i class="bi bi-check-circle"></i><span>Completed Task</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Task Status Nav -->
+        <li class="nav-heading">Pages</li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Registration", "UserAuthentication")">
+                <i class="bi bi-card-list"></i>
+                <span>Register Employee</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("RegistrationAdmin", "UserAuthentication")">
+                <i class="bi bi-card-list"></i>
+                <span>Register Admin</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Users", "Admin")">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Contact", "Admin")">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li><!-- End Contact Page Nav -->
+    </ul>
+
+</aside><!-- End Sidebar-->
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Register Employee</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item">Pages</li>
+                <li class="breadcrumb-item active">Register Employee</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Register Employee</h5>
+                        <form asp-action="Registration" method="post" class="row g-3">
+
+                            <div class="col-md-6">
+                                    <label for="FirstName">First Name*</label>
+                                    <input type="text" class="form-control" id="FirstName" asp-for="FirstName" />
+                                    <span class="text-danger" asp-validation-for="FirstName"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                    <label for="LastName">Last Name*</label>
+                                    <input type="text" class="form-control" id="LastName" asp-for="LastName" />
+                                    <span class="text-danger" asp-validation-for="LastName"></span>
+                            </div>
+
+
+
+                            <div class="col-md-6">
+                                    <label for="Email">Email</label>
+                                    <input type="text" class="form-control" id="Email" asp-for="Email" />
+                                    <span class="text-danger" asp-validation-for="Email"></span>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <label for="Username">Employee Name</label>
+                                    <input type="text" class="form-control" id="Username" asp-for="Username" />
+                                    <span class="text-danger" asp-validation-for="Username"></span>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                    <label for="Password">Password (e.g., John@123)</label>
+                                    <input type="password" class="form-control" id="Password" asp-for="Password" />
+                                    <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                    <label for="PasswordConfirm">Password confirm</label>
+                                    <input type="password" class="form-control" id="PasswordConfirm" asp-for="PasswordConfirm" />
+                                    <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+                            </div>
+
+
+                            @if (TempData["msg"] != null)
+                            {
+                                <div class="form-group">
+                                    <span class="text-info">@TempData["msg"]</span>
+                                </div>
+                            }
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info">Registration</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+

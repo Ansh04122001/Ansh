@@ -1,0 +1,354 @@
+﻿@model Ansh.Models.DTO.UserProfile
+@{
+    string username = User.Identity.Name;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-wvfXpqpZZVQGK8MO5u71nD/BaOVvD6p4fDfl5ceVIUqPZ8o5ntfYBy3PC1lI1jN" crossorigin="anonymous">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+</head>
+<body>
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+            <a href="@Url.Action("Emp", "Dashboard")" class="logo d-flex align-items-center">
+            <img src="~/context/img/logo.png" alt="">
+            <span class="d-none d-lg-block">Admin</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                    <i class="bi bi-search"></i>
+                </a>
+            </li><!-- End Search Icon-->
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge bg-primary badge-number">4</span>
+                </a><!-- End Notification Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <li class="dropdown-header">
+                        You have 4 new notifications
+                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-exclamation-circle text-warning"></i>
+                        <div>
+                            <h4>Lorem Ipsum</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>30 min. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-x-circle text-danger"></i>
+                        <div>
+                            <h4>Atque rerum nesciunt</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>1 hr. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <div>
+                            <h4>Sit rerum fuga</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>2 hrs. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-info-circle text-primary"></i>
+                        <div>
+                            <h4>Dicta reprehenderit</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>4 hrs. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li class="dropdown-footer">
+                        <a href="#">Show all notifications</a>
+                    </li>
+
+                </ul><!-- End Notification Dropdown Items -->
+
+            </li><!-- End Notification Nav -->
+
+
+
+            <li class="nav-item dropdown pe-3">
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    @if (Model != null)
+                    {
+                        <!-- Add your HTML markup here to display the user's profile image -->
+                        <img src="@Model.ProfileImage" alt="Profile Image" />
+
+                        <!-- Display other user profile information as needed -->
+                    }
+                    else
+                    {
+                        <p>User profile not found.</p>
+                    }
+                    <span class="d-none d-md-block dropdown-toggle ps-2">@username</span>
+                </a><!-- End Profile Iamge Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>Hi @username</h6>
+
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/Dashboard/Users">
+                            <i class="bi bi-person"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/Dashboard/ChangePassword">
+                            <i class="bi bi-bi bi-gear"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/UserAuthentication/Logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </li>
+
+                </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+                <a class="nav-link " href="@Url.Action("Emp", "Dashboard")">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#employee-section-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person"></i><span>Tasks</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="employee-section-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="@Url.Action("NewTask", "Dashboard")">
+                        <i class="bi bi-person-plus"></i><span>New Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("InProgessTask", "Dashboard")">
+                        <i class="bi bi-person-lines-fill"></i><span>InProgess Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("CompletedTask", "Dashboard")">
+                        <i class="bi bi-person-lines-fill"></i><span>Completed Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("AllTask", "Dashboard")">
+                        <i class="bi bi-person-lines-fill"></i><span>All Tasks</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Employee Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Users", "Dashboard")">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Contact", "Dashboard")">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li><!-- End Contact Page Nav -->
+    </ul>
+
+</aside><!-- End Sidebar-->
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>New Task</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item">Task Status</li>
+                <li class="breadcrumb-item active">Completed Task</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="taskTable" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                       
+                                        <th>Project Name</th>
+                                        <th>Department</th>
+                                        <th>Task Descrpition</th>
+                                        <th>Task Title</th>
+                                        <th>Task Priority</th>
+                                    <th>Assign Date</th>
+                                    <th>Task End Date</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+<!-- DataTables JS script -->
+    <script>
+        $(document).ready(function () {
+            $('#taskTable').DataTable({
+                ajax: {
+                    url: '/Dashboard/TaskDispaly',
+                    dataSrc: ''
+                },
+                columns: [
+                   
+                    { data: 'projectName' },
+                    { data: 'departmentName' },
+                    { data: 'taskDescription' },
+                    
+                    { data: 'taskTitle' },
+                    { data: 'taskPriority' },
+                    {
+                        data: 'taskAassignDate',
+                        render: function (data) {
+                            console.log('Original taskAssignDate:', data);
+                            var formattedDate = formatDate(data);
+                            console.log('Formatted taskAssignDate:', formattedDate);
+                            return formattedDate;
+                        }
+                    },
+                    {
+                        data: 'taskEndDate',
+                        render: function (data) {
+                            console.log('Original taskEndDate:', data);
+                            var formattedDate = formatDate(data);
+                            console.log('Formatted taskEndDate:', formattedDate);
+                            return formattedDate;
+                        }
+                    },
+
+                ]
+            });
+        });
+        function formatDate(dateString) {
+            var date = new Date(dateString);
+            console.log('Parsed date object:', date);
+            if (isNaN(date.getTime())) {
+                return 'Invalid Date';
+            }
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            // Pad with leading zeros if needed
+            day = day < 10 ? '0' + day : day;
+            month = month < 10 ? '0' + month : month;
+
+            return day + '-' + month + '-' + year;
+        }
+    </script>
+
+</body>
+</html>

@@ -4,7 +4,7 @@ using Ansh.Repositories.Abstract;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace Ansh_.Repositories.Implementation
+namespace Ansh.Repositories.Implementation
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
@@ -24,10 +24,12 @@ namespace Ansh_.Repositories.Implementation
         {
             var status = new Status();
             var userExists = await userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
+            var emailExists = await userManager.FindByEmailAsync(model.Email);
+
+            if (userExists != null || emailExists != null)
             {
                 status.StatusCode = 0;
-                status.Message = "User already exist";
+                status.Message = "User with the given username or email already exists";
                 return status;
             }
             ApplicationUser user = new ApplicationUser()
@@ -48,8 +50,11 @@ namespace Ansh_.Repositories.Implementation
                 return status;
             }
 
-            if (!await roleManager.RoleExistsAsync(model.Role))
-                await roleManager.CreateAsync(new IdentityRole(model.Role));
+            if (await roleManager.RoleExistsAsync(model.Role))
+            {
+                await userManager.AddToRoleAsync(user, model.Role);
+            }
+
 
 
             if (await roleManager.RoleExistsAsync(model.Role))
@@ -62,11 +67,11 @@ namespace Ansh_.Repositories.Implementation
             return status;
         }
 
-
         public async Task<Status> LoginAsync(LoginModel model)
         {
             var status = new Status();
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByEmailAsync(model.Username);
+
             if (user == null)
             {
                 status.StatusCode = 0;
@@ -94,6 +99,7 @@ namespace Ansh_.Repositories.Implementation
                 {
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
+
                 status.StatusCode = 1;
                 status.Message = "Logged in successfully";
             }
@@ -110,6 +116,7 @@ namespace Ansh_.Repositories.Implementation
 
             return status;
         }
+
 
         public async Task LogoutAsync()
         {
