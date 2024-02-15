@@ -1,0 +1,44 @@
+﻿
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Apply responsive styles for mobile view */
+@media screen and (max-width: 600px) {
+    /* Hide table headers */
+    thead {
+        display: none;
+    }
+
+    /* Display table rows as block */
+    tr {
+        display: block;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+    }
+
+    /* Set table data to full width */
+    td {
+        display: block;
+        text-align: right;
+    }
+
+        /* Ensure each td occupies full width */
+        td:before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+        }
+}
+

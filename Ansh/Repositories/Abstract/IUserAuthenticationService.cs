@@ -9,5 +9,6 @@ namespace Ansh.Repositories.Abstract
         Task LogoutAsync();
         Task<Status> RegisterAsync(RegistrationModel model);
         Task<Status> ChangePasswordAsync(ChangePasswordModel model, string username);
+        
     }
 }
