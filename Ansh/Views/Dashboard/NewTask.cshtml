@@ -248,9 +248,10 @@
         <h1>New Task</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="" asp-action="Index">Home</a></li>
+
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Emp">Home</a></li>
                 <li class="breadcrumb-item">Task Status</li>
-                <li class="breadcrumb-item active">Completed Task</li>
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="NewTask">NewTask</a></li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
