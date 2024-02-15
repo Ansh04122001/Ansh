@@ -34,34 +34,7 @@ namespace Ansh.Controllers
             _ext = ext;
         }
 
-        public IActionResult Time()
-        {
-            var currentUser = User.Identity.Name;
-            UserProfile userProfile = _context.UserProfiles.FirstOrDefault(u => u.FullName == currentUser);
-
-            var viewModel = new ViewModels
-            {
-                UserProfile = userProfile,
-                Employee = _dbcontext.Employees.ToList(),
-                Departments = _dbContext.Depts.ToList()
-            };
-
-            // Check if userProfile is null and handle accordingly
-            if (userProfile == null)
-            {
-
-                return RedirectToAction("UserProfileNotFound");
-            }
-
-            // Check if Employee or Departments is null and handle accordingly
-            if (viewModel.Employee == null || viewModel.Departments == null)
-            {
-
-                return RedirectToAction("DataNotFound");
-            }
-
-            return View(viewModel);
-        }
+     
         [HttpGet]
         public IActionResult GetDepartments()
         {

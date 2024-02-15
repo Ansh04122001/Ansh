@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Ansh.Controllers
 {
@@ -17,16 +19,26 @@ namespace Ansh.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly EmployeeDbContext _dbcontext;
         private readonly TaskDbContext _Context;
-        private readonly ClassRepository _classRepository; 
-        public DashboardController(IUserAuthenticationService authService, UsersDbContext context, IWebHostEnvironment webHostEnvironment, EmployeeDbContext dbcontext, TaskDbContext Context, ClassRepository classRepository)
+        private readonly ClassRepository _classRepository;
+        private readonly ProjectDbContext _ext;
+        private readonly TimeDbContext _xt;
+
+
+        public DashboardController(IUserAuthenticationService authService, UsersDbContext context, IWebHostEnvironment webHostEnvironment, EmployeeDbContext dbcontext, TaskDbContext Context, ClassRepository classRepository, ProjectDbContext ext, TaskDbContext text,TimeDbContext xt)
         {
             this._authService = authService;
             _context = context;
             _webHostEnvironment = webHostEnvironment;
             _dbcontext = dbcontext;
             _Context = Context;
-            _classRepository = classRepository;  
+            _classRepository = classRepository;
+           
+            _ext = ext;
+            _xt = xt;
+
         }
+
+     
         public IActionResult Display()
         {
             // Retrieve the current user
@@ -81,7 +93,47 @@ namespace Ansh.Controllers
 
 
         }
-       public IActionResult  TaskDispaly()
+        public IActionResult Time()
+        {
+            var currentUser = getCurrentUser();
+            var viewModel = new ViewModels
+            {
+                UserProfile = _context.UserProfiles.FirstOrDefault(u => u.FullName == currentUser),
+                Project = _ext.Projects.ToList(),
+                
+
+
+            };
+            return View(viewModel);
+        
+        }
+        private string getCurrentUser()
+        {
+            return User.Identity.Name;
+        }
+
+        [HttpGet]
+        public IActionResult GetTasks(string projectName)
+        {
+            // Fetch tasks based on the selected project name
+            var tasks = _Context.Tasks.Where(t => t.ProjectName == projectName).Select(t => t.TaskTitle).ToList();
+            return Json(tasks);
+        }
+        [HttpPost]
+        public IActionResult time(Time Times)
+        {
+            if (ModelState.IsValid)
+            {
+                _xt.Times.Add(Times);
+                _xt.SaveChanges();
+                return RedirectToAction("Emp", "Dashboard");
+            }
+            return View(Times);
+        }
+
+
+
+        public IActionResult  TaskDispaly()
         {
             var currentUser = User.Identity.Name;
 
