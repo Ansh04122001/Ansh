@@ -15,6 +15,9 @@ builder.Services.AddDbContext<DeptDbContext>(options => options.UseSqlServer(bui
 builder.Services.AddDbContext<EmployeeDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 builder.Services.AddDbContext<TaskDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 builder.Services.AddDbContext<ProjectDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+builder.Services.AddDbContext<TimeDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+
+
 
 
 

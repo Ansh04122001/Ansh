@@ -8,9 +8,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-
         <a href="@Url.Action("Emp", "Dashboard")" class="logo d-flex align-items-center">
-
 
             <img src="~/context/img/logo.png" alt="">
             <span class="d-none d-lg-block">Admin</span>
@@ -208,6 +206,12 @@
                 </li>
             </ul>
         </li><!-- End Employee Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Time", "Dashboard")">
+                <i class="bi bi-clock-history"></i>
+                <span>Timesheet</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
 
         <li class="nav-heading">Pages</li>
 
@@ -232,10 +236,8 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-
                 <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Emp">Home</a></li>
                 <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Emp">Dashboard</a></li>
-
             </ol>
         </nav>
     </div><!-- End Page Title -->

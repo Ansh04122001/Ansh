@@ -43,6 +43,9 @@ namespace Ansh.Models.DTO
                 }
             }
         }
+
+      
+
         public List<Class> GetTasks(string fullName, out int inProgressTaskCount, out int completedTaskCount, out int totalTaskCount)
         {
             using (var connection = new SqlConnection("Data Source=DESKTOP-96C5IE4;Initial Catalog=New;User ID=sa;Password=Ansh;Encrypt=True;Trust Server Certificate=True"))

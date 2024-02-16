@@ -18,5 +18,6 @@ namespace Ansh.Models.DTO
         public  List<Taskassign> Task { get; set; }
         public Project Projects { get; set; }
         public List<Project> Project { get; set; }
+        public Time Times { get; set; }
     }
 }
